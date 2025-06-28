@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --bg-color: #ffffff;
+  /* Colore di sfondo chiaro */
+  --text-color: #000000;
+  /* Colore del testo chiaro */
+  --card-bg-color: #e5e7eb;
+  /* Colore di sfondo della card chiara */
+  --card-text-color: #000000;
+  /* Colore del testo della card chiara */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a202c;
+    /* Colore di sfondo scuro */
+    --text-color: #ffffff;
+    /* Colore del testo scuro */
+    --card-bg-color: #2d3748;
+    /* Colore di sfondo della card scura */
+    --card-text-color: #ffffff;
+    /* Colore del testo della card scura */
+  }
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--card-bg-color);
+  color: var(--card-text-color);
+}
+
+
+/* Spinner */
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 8px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
