@@ -11,10 +11,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
     <Routes>
-      <Route path="" element={<Game />} />
-      <Route path="credits" element={<Credits />} />
+      <Route path="/plot-twist/" element={<Game />} />
+      {/* <Route path="credits" element={<Credits />} /> */}
 
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/plot-twist/" replace />} />
     </Routes>
   </BrowserRouter>
   </StrictMode>,
