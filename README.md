@@ -2,7 +2,7 @@
 
 Un Progetto di IeneNere
 
-Gioca [qui](http://localhost:5173)
+Gioca [qui](https://adambrosio4m.github.io/plot-twist/)
 
 ## Regole del gioco
 

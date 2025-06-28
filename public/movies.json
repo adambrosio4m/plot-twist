@@ -26,5 +26,33 @@
     {
         "description": "In questo film Joaquin Phoenix è un criminale pagliaccio ludopatico",
         "title": "Poker"
+    },
+    {
+        "title": "Dal tramonto all’elba",
+        "description": "Scoppia un'epidemia zombie. Un gruppo di persone, al crepuscolo, si mettono in viaggio verso una famosa isola toscana, sperando di sopravvivere."
+    },
+    {
+        "title": "C’era una colta in America",
+        "description": "È la storia di un gruppo di mafiosi a New York, ma in questa versione, il personaggio protagonista è una donna, che è l’unica intelligente e acculturata di tutta la nazione."
+    },
+    {
+        "title": "Il sesto sesso",
+        "description": "C’è questo bambino con poteri soprannaturali, a un certo punto ha una visione e legge la seguente scritta: maschile, femminile, binario, non binario, fluido, …, e si accorge che manca una parola per completarla."
+    },
+    {
+        "title": "Le api della libertà",
+        "description": "C’è un carcerato che è recluso da molto tempo, e inizia a consultare molti libri che parlano di questi insetti giallo e neri, e grazie a questo si sente un po' meno recluso."
+    },
+    {
+        "title": "Il principe cerca foglie",
+        "description": "Il figlio di un re africano va in America per trovare una sposa, ma alla fine finisce per andare in fissa con quelle cose che in autunno cadono. E così si scorda del motivo principale per cui era partito."
+    },
+    {
+        "title": "L’attico fuggente",
+        "description": "Un professore molto amato dai suoi studenti è alla ricerca disperata di un appartamento all’ultimo piano. Ma ogni volta che prova a comprarlo o ad affittarlo, lo anticipano e glielo sfilano da sotto le mani."
+    },
+    {
+        "title": "Malto",
+        "description": "Un cane deve salvare la vita di una bambina, ma in questa versione ha il nome di un cereale."
     }
 ]
