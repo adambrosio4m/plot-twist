@@ -96,7 +96,7 @@ export default function Game() {
             setText(movie.title);
         }
         else {
-            setTitle("Descrizione");
+            setTitle("Trama");
             setText(movie.description);
         }
     }
@@ -126,7 +126,7 @@ export default function Game() {
             <h1 className="text-3xl font-bold">Plot Twist</h1>
         </header>
         <Swipeable className="flex flex-grow items-center justify-center"
-            onRightSwipe={getMovie}
+            onDownSwipe={getMovie}
             onClick={toggle} >
             <div >
                 {movie ?
