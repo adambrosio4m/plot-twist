@@ -1,74 +1,9 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import useFetch from "@/hook/useFetch";
 import Spinner from "./Spinner"
 import Refresh from "./Refresh";
-
-function Swipeable({ children, className, onLeftSwipe, onRightSwipe, onUpSwipe, onDownSwipe, ...props }) {
-    const [touchStart, setTouchStart] = useState(null)
-    const [touchEnd, setTouchEnd] = useState(null)
-
-    // the required distance between touchStart and touchEnd to be detected as a swipe
-    const minSwipeDistance = 50
-
-    function onTouchStart(e) {
-        setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
-        setTouchStart({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY })
-        console.log("start", touchStart);
-
-    }
-
-    function onTouchMove(e) {
-        setTouchEnd({ x: e.targetTouches[0].clientX, y: e.targetTouches[0].clientY })
-        console.log("move", touchEnd);
-    }
-
-    function onTouchEnd() {
-        if (!touchStart || !touchEnd) return
-
-        console.log("end", touchEnd);
-
-        const delta = {
-            x: touchEnd.x - touchStart.x,
-            y: touchEnd.y - touchStart.y,
-        }
-
-        // console.log("delta", delta);
-
-        const isLeftSwipe = delta.x > minSwipeDistance
-        const isRightSwipe = delta.x < -minSwipeDistance
-        const isUpSwipe = delta.y > minSwipeDistance
-        const isDownSwipe = delta.y < -minSwipeDistance
-
-        if (isLeftSwipe) {
-            console.log("swipe left");
-            typeof onLeftSwipe === 'function' && onLeftSwipe();
-        }
-        else if (isRightSwipe) {
-            console.log("swipe right", typeof onRightSwipe);
-            if (typeof onRightSwipe === 'function') onRightSwipe();
-        }
-
-        if (isUpSwipe) {
-            console.log("swipe up");
-            typeof onUpSwipe === 'function' && onUpSwipe();
-        }
-        else if (isDownSwipe) {
-            console.log("swipe down");
-            typeof onDownSwipe === 'function' && onDownSwipe();
-        }
-        // add your conditional logic here
-    }
-
-    return <div
-        className={className}
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        {...props}>
-        {children}
-    </div>
-}
-
+import Swipeable from "./Swipeable";
+import debounce from "../util/debounce";
 
 function Card({ title, children, className, onClick }) {
     return <>
@@ -86,7 +21,11 @@ export default function Game() {
     const [showSolution, setShowSolution] = useState(undefined);
     const [title, setTitle] = useState("Descrizione");
     const [text, setText] = useState(undefined);
+    const [enable, setEnable] = useState(true);
+
+    const scrollRef = useRef(null);
     const { data } = useFetch("movies.json");
+
 
     function onToggle() {
         if (!movie) return;
@@ -106,6 +45,8 @@ export default function Game() {
     }
 
     function getMovie() {
+        console.log("loading");
+        
         setMovie(data[Math.floor(Math.random() * data.length)]);
         setShowSolution(false);
     }
@@ -118,24 +59,74 @@ export default function Game() {
         getMovie();
     }
 
+    function loadNewCard() {
+        console.log("carico nuova scheda")
+    }
+
+    // const debouncedLoad = debounce(loadNewCard, 500);
+
+    function scrollAndLoad(e) {
+
+        console.log("scroll end");
+        
+        if (e.target.scrollTop !== 0)
+            scrollRef.current.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            });
+
+        if (e.target.scrollTop === 0) // e.target.scrollTopMax*0.2)
+            setEnable(true)
+        
+        if (enable && e.target.scrollTop > e.target.scrollTopMax*0.7) {
+            getMovie();
+            setEnable(false);
+        }
+    }
+
+    const handleScrollEnd = debounce(scrollAndLoad, 0);
+
+    function handleScrollCapture(e){
+        console.log("scroll");
+        
+        if(!enable){
+            e.preventDefault();
+        }
+    }
+    // function scrollEffect() {
+    //     // Aggiungi l'event listener per lo scroll
+    //     window.addEventListener('scroll', handleScrollEnd);
+
+    //     // Rimuovi l'event listener al momento della pulizia
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScrollEnd);
+    //     };
+    // }
+
     useEffect(onToggle, [showSolution, movie]);
     useEffect(getFirstMovie, [data]);
 
-    return <div className="min-h-screen flex flex-col">
-        <header className="mb-4 w-full text-left">
-            <h1 className="text-3xl font-bold">Plot Twist</h1>
-        </header>
-        <Swipeable className="flex flex-grow items-center justify-center"
-            onDownSwipe={getMovie}
-            onClick={toggle} >
-            <div >
-                {movie ?
-                    <Card title={title} > {text} </Card>
-                    : <Spinner />}
+    // useEffect(scrollEffect, []);
 
-            </div>
-        </Swipeable>
+    return <div ref={scrollRef} onScrollEnd={handleScrollEnd} style={{ scrollbarWidth: 'none' }} className="h-screen overflow-auto">
+        <div className="min-h-screen flex flex-col justify-between">
 
-        {/* <Refresh onClick={} /> */}
+            <header className="w-full text-center py-4">
+                <h1 className="text-3xl font-bold">Plot Twist</h1>
+            </header>
+            <Suspense fallback={<Spinner />}>
+                <main className="flex flex-grow items-center justify-center"
+                    // onDownSwipe={getMovie}
+                    onClick={toggle} >
+                    <div >
+                        <Card title={title} > {text} </Card>
+                    </div>
+                </main>
+            </Suspense>
+
+            <footer className="text-center py-4"> Scorri verso il basso per caricare una nuova scheda</footer>
+        </div>
+        <div style={{ height: '50px' }}></div>
     </div>
 }
