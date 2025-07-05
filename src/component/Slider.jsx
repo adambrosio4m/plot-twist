@@ -153,8 +153,8 @@ export default function Slider() {
     return <main ref={mainRef} onScroll={resetShowTitle} onScrollEnd={debounceEnableOnScrollEnd} className='h-lvh snap-y snap-mandatory overflow-y-scroll scroll-smooth'>
         {twists.map((twist, key) => <div key={key} className='h-lvh snap-start snap-always'>
             <div className='h-lvh flex flex-col justify-center items-center'>
-                <div className='card max-w-md w-full p-4 rounded-lg shadow-md'>
-                    <h2 onClick={debouncedToggleTitle} className="cursor-pointer text-xl font-semibold">{getName(twist.name)}</h2>
+                <div onClick={debouncedToggleTitle} className='cursor-pointer card max-w-md w-full p-4 rounded-lg shadow-md'>
+                    <h2 className="text-xl font-semibold">{getName(twist.name)}</h2>
                     <p className="mt-2">
                         {twist.description}
                     </p>
