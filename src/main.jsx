@@ -10,7 +10,7 @@ function App() {
   return (
     <div className='h-lvh overflow-hidden flex flex-col justify-between'>
       <header className='fixed top-0 w-full text-center py-4'>
-        <h1 className='text-3xl font-bold'>Plot-Twist</h1>
+        <h1 className='text-3xl font-bold'>Plot Twist</h1>
       </header>
 
       <Outlet />

@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react"
-import debounce from "../util/debounce";
+import { useCallback, useEffect, useRef, useState } from "react"
+import debounce from "@/util/debounce";
+import Spinner from "./Spinner";
 
 const twists = [
     {
@@ -117,11 +118,13 @@ export default function Slider() {
         enable && setShowTitle(!showTitle);
     }
 
-    const debouncedToggleTitle = debounce(toggleTitle, 75);
+    const debouncedToggleTitle = debounce(toggleTitle, 70);
 
-    function resetShowTitle() {      
+    function resetShowTitle() {        
         setShowTitle(false);
         setEnable(false);
+
+        debouncedEnableOnScrollEnd();
     }
 
     function getName(title) {
@@ -142,19 +145,19 @@ export default function Slider() {
         });
     }
 
-    function enableOnScrollEnd() {        
+    function enableOnScrollEnd() {            
         setEnable(true);
     }
 
-    const debounceEnableOnScrollEnd = debounce(enableOnScrollEnd, 75)
+    const debouncedEnableOnScrollEnd = useCallback(debounce(enableOnScrollEnd, 150), []);
 
     useEffect(scrollTopOnMount, []);
 
-    return <main ref={mainRef} onScroll={resetShowTitle} onScrollEnd={debounceEnableOnScrollEnd} className='h-lvh snap-y snap-mandatory overflow-y-scroll scroll-smooth'>
+    return <main ref={mainRef} onScroll={resetShowTitle} className='h-lvh snap-y snap-mandatory overflow-y-scroll scroll-smooth'>
         {twists.map((twist, key) => <div key={key} className='h-lvh snap-start snap-always'>
             <div className='h-lvh flex flex-col justify-center items-center'>
                 <div onClick={debouncedToggleTitle} className='cursor-pointer card max-w-md w-full p-4 rounded-lg shadow-md'>
-                    <h2 className="text-xl font-semibold">{getName(twist.name)}</h2>
+                    <h2 className="text-xl font-semibold">{enable? getName(twist.name) : <Spinner />}</h2>
                     <p className="mt-2">
                         {twist.description}
                     </p>
