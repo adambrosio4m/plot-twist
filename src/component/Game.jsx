@@ -79,7 +79,7 @@ export default function Game() {
         if (e.target.scrollTop === 0) // e.target.scrollTopMax*0.2)
             setEnable(true)
         
-        if (enable && e.target.scrollTop > e.target.scrollTopMax*0.7) {
+        if (enable && e.target.scrollTop > e.target.scrollTopMax*0.5) {
             getMovie();
             setEnable(false);
         }
@@ -127,6 +127,6 @@ export default function Game() {
 
             <footer className="text-center py-4"> Scorri verso il basso per caricare una nuova scheda</footer>
         </div>
-        <div style={{ height: '50px' }}></div>
+        <div style={{ height: '10vh' }}></div>
     </div>
 }

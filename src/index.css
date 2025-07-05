@@ -2,37 +2,61 @@
 
 :root {
   --bg-color: #ffffff;
-  /* Colore di sfondo chiaro */
   --text-color: #000000;
-  /* Colore del testo chiaro */
   --card-bg-color: #e5e7eb;
-  /* Colore di sfondo della card chiara */
   --card-text-color: #000000;
-  /* Colore del testo della card chiara */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-color: #1a202c;
-    /* Colore di sfondo scuro */
     --text-color: #ffffff;
-    /* Colore del testo scuro */
     --card-bg-color: #2d3748;
-    /* Colore di sfondo della card scura */
     --card-text-color: #ffffff;
-    /* Colore del testo della card scura */
   }
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+html,
 body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  height: 100vh;
+  overflow: hidden;
+
+  font-family: 'Helvetica Neue', sans-serif;
+
   background-color: var(--bg-color);
   color: var(--text-color);
 }
 
+header {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
 .card {
   background-color: var(--card-bg-color);
   color: var(--card-text-color);
 }
+
+
+/* 
+.nav {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+} */
+
+
+
 
 
 /* Spinner */
