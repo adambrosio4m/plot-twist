@@ -45,8 +45,6 @@ createRoot(document.getElementById('root')).render(
         <Route path='/plot-twist/' element={<App />}>
           <Route path='' element={<Slider />} />
         </Route>
-        {/* <Route path="credits" element={<Credits />} /> */}
-
         <Route path='*' element={<Navigate to='/plot-twist/' replace />} />
       </Routes>
     </BrowserRouter>
